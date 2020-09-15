@@ -660,6 +660,9 @@ class FolioPageFragment : Fragment(),
         } else {
             mRootView!!.findViewById<View>(R.id.indicatorLayout)
                 .setBackgroundColor(Color.WHITE)
+
+            mRootView!!.findViewById<View>(R.id.indicatorLayout)
+                .background = context!!.getDrawable(R.drawable.img_bg_t)
         }
     }
 
