@@ -3,7 +3,10 @@ package com.folioreader.ui.base;
 import android.content.Context;
 import com.folioreader.Config;
 import com.folioreader.Constants;
+import com.folioreader.FolioReader;
 import com.folioreader.R;
+
+import java.util.Random;
 
 /**
  * @author gautam chibde on 14/6/17.
@@ -77,9 +80,8 @@ public final class HtmlUtil {
                 break;
         }
 
-        if (config.isNightMode()) {
-            classes += " nightMode";
-        }
+        //add a random picture as a background
+        classes += getRandomBgClass(config.isNightMode());
 
         switch (config.getFontSize()) {
             case 0:
@@ -104,5 +106,51 @@ public final class HtmlUtil {
         htmlContent = htmlContent.replace("<html", "<html class=\"" + classes + "\"" +
                 " onclick=\"onClickHtml()\"");
         return htmlContent;
+    }
+
+    private static String getRandomBgClass(boolean isNighMode) {
+
+        int random = FolioReader.randomBackground;
+        if (isNighMode) {
+            return getNightModeBgClass(random);
+        } else {
+            return getDayModeBgClass(random);
+        }
+    }
+
+    private static String getNightModeBgClass(int number) {
+        String cssClassName = " nightMode";
+
+        switch (number) {
+            case 0:
+                cssClassName = " nightModeBg1";
+                break;
+            case 1:
+                cssClassName = " nightModeBg2";
+                break;
+            case 2:
+                cssClassName = " nightModeBg3";
+                break;
+        }
+        return cssClassName;
+    }
+
+    private static String getDayModeBgClass(int number) {
+
+        // no class by default required
+        String cssClassName = " ";
+
+        switch (number) {
+            case 0:
+                cssClassName = " dayModeBg1";
+                break;
+            case 1:
+                cssClassName = " dayModeBg2";
+                break;
+            case 2:
+                cssClassName = " dayModeBg3";
+                break;
+        }
+        return cssClassName;
     }
 }

@@ -25,6 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -56,6 +57,8 @@ public class FolioReader {
     public Retrofit retrofit;
     @Nullable
     public R2StreamerApi r2StreamerApi;
+
+    public static int randomBackground = new Random().nextInt(3);
 
     public interface OnClosedListener {
         /**

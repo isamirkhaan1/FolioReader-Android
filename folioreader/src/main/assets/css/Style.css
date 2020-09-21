@@ -203,8 +203,28 @@ body {
     background-color: transparent !important;
 }
 
+html.dayModeBg1{
+    background-image: url('../img/img_light_1.jpg')
+}
+html.dayModeBg2{
+    background-image: url('../img/img_light_2.jpg')
+}
+html.dayModeBg3{
+    background-image: url('../img/img_light_3.jpg')
+}
+
 html.nightMode {
     background-color: #131313 !important;
+}
+
+html.nightModeBg1{
+    background-image: url('../img/img_dark_1.jpg')
+}
+html.nightModeBg2{
+    background-image: url('../img/img_dark_2.jpg')
+}
+html.nightModeBg3{
+    background-image: url('../img/img_dark_3.jpg')
 }
 
 .nightMode p, .nightMode div {
