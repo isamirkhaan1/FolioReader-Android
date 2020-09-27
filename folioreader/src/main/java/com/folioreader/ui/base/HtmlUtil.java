@@ -81,7 +81,9 @@ public final class HtmlUtil {
         }
 
         //add a random picture as a background
-        classes += getRandomBgClass(config.isNightMode());
+        //classes += getRandomBgClass(config.isNightMode());
+
+        classes +=" nightModeBg3";
 
         switch (config.getFontSize()) {
             case 0:
