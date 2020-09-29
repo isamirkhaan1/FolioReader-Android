@@ -16,6 +16,7 @@
 package com.folioreader.android.sample;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ import com.folioreader.util.OnHighlightListener;
 import com.folioreader.util.ReadLocatorListener;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -68,6 +70,17 @@ public class HomeActivity extends AppCompatActivity
 
                 folioReader.setConfig(config, true)
                         .openBook(R.raw.accessible_epub_3);
+
+                folioReader.setOnClosedListener(new FolioReader.OnClosedListener() {
+                    @Override
+                    public void onFolioReaderClosed() {
+                        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +"/folioreader");
+                                if(file.isDirectory()){
+                                    for(File f : file.listFiles())
+                                        Log.e("TAG", "" +f.delete());
+                                }
+                    }
+                });
             }
         });
 
