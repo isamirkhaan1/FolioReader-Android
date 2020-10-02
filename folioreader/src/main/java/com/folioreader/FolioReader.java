@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Parcelable;
+
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.folioreader.model.HighLight;
 import com.folioreader.model.HighlightImpl;
 import com.folioreader.model.locators.ReadLocator;
@@ -19,6 +21,7 @@ import com.folioreader.ui.base.OnSaveHighlight;
 import com.folioreader.ui.base.SaveReceivedHighlightTask;
 import com.folioreader.util.OnHighlightListener;
 import com.folioreader.util.ReadLocatorListener;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -43,6 +46,7 @@ public class FolioReader {
     public static final String ACTION_SAVE_READ_LOCATOR = "com.folioreader.action.SAVE_READ_LOCATOR";
     public static final String ACTION_CLOSE_FOLIOREADER = "com.folioreader.action.CLOSE_FOLIOREADER";
     public static final String ACTION_FOLIOREADER_CLOSED = "com.folioreader.action.FOLIOREADER_CLOSED";
+    public static final String EXTRA_BRIGHTNESS = "EXTRA_BRIGHTNESS";
 
     private Context context;
     private Config config;
@@ -52,6 +56,8 @@ public class FolioReader {
     private ReadLocatorListener readLocatorListener;
     private OnClosedListener onClosedListener;
     private ReadLocator readLocator;
+
+    private float brightness = -1F;
 
     @Nullable
     public Retrofit retrofit;
@@ -167,6 +173,10 @@ public class FolioReader {
         intent.putExtra(EXTRA_PORT_NUMBER, portNumber);
         intent.putExtra(FolioActivity.EXTRA_READ_LOCATOR, (Parcelable) readLocator);
 
+        if (brightness != -1F) {
+            intent.putExtra(EXTRA_BRIGHTNESS, brightness);
+        }
+
         if (rawId != 0) {
             intent.putExtra(FolioActivity.INTENT_EPUB_SOURCE_PATH, rawId);
             intent.putExtra(FolioActivity.INTENT_EPUB_SOURCE_TYPE,
@@ -223,6 +233,11 @@ public class FolioReader {
                 .build();
 
         singleton.r2StreamerApi = singleton.retrofit.create(R2StreamerApi.class);
+    }
+
+    public FolioReader setBrightness(float value) {
+        brightness = value;
+        return singleton;
     }
 
     public FolioReader setOnHighlightListener(OnHighlightListener onHighlightListener) {
